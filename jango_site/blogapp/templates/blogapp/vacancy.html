@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %} Просмотр вакансии {% endblock %}
+
+
+{% block menu_title %} Меню {% endblock %}
+
+{% block menu_items %}
+    {% for item in menu %}
+        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ item.url }}">{{ item.text }}</a>
+    {% endfor %}
+{% endblock %}
+
+{% block page_content %}
+<h1 class="mt-4">Вакансия {{vacancy.vacancy_id}}</h1>
+    <p>{{vacancy.name}}</p>
+{% endblock %}

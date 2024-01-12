@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %} Просмотр вакансии {% endblock %}
+
+
+{% block menu_title %} Меню {% endblock %}
+
+{% block menu_items %}
+    {% for item in menu %}
+        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ item.url }}">{{ item.text }}</a>
+    {% endfor %}
+{% endblock %}
+
+{% block page_content %}
+<h1 class="mt-4">Редактирование навыка</h1>
+    <p>Редактирование навыка {{ skill.id }}</p>
+
+    <form method="post" id="Create_Skill_Form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary" id="Create_Skill_BTN">Создать</button>
+        </form>
+{% endblock %}

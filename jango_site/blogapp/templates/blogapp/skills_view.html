@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %} Создание {% endblock %}
+
+
+{% block menu_title %} Меню {% endblock %}
+
+{% block menu_items %}
+    {% for item in menu %}
+        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{{ item.url }}">{{ item.text }}</a>
+    {% endfor %}
+{% endblock %}
+
+{% block page_content %}
+<h1 class="mt-4">Навыки</h1>
+    <p><a href="/create_skill">Создать новый навык</a></p>
+    <p>Все навыки</p>
+        <table id="data" class="table table-striped">
+        <thead>
+            <tr>
+            <th>ID</th>
+            <th>Навык</th>
+            <th>Редактирование</th>
+            <th>Удаление</th>
+          </tr>
+    </thead>
+    <tbody>
+      {% for skill in skills %}
+        <tr>
+          <td>{{ skill.id }}</td>
+           <td> <a href="{% url 'blogapp:view_skill' id=skill.id %}">{{ skill.name }}</a></td>
+          <td><a href= "{% url 'blogapp:edit_skill' id=skill.id %}"> Редактирование </a></td>
+          <td><a href= " "> Удаление </a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

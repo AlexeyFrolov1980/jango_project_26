@@ -8,7 +8,8 @@ class MenuItem:
 def make_menu():
     res = list()
     res.append(MenuItem("Главная", "/"))
-    res.append(MenuItem("Создание", "/create"))
+    res.append(MenuItem("Навыки (на функциях)", "/view_skills"))
+    res.append(MenuItem("Навыки (на классах)", "/skill_list"))
     res.append(MenuItem("Контакты", "/contacts"))
     return res
 

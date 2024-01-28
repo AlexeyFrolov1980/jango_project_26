@@ -1,4 +1,7 @@
 from django.db import models
+from users_app.models import AppUser
+
+import jango_site.models
 
 
 class Area(models.Model):
@@ -15,6 +18,8 @@ class Area(models.Model):
 
 class Skill(models.Model):
     name = models.CharField(max_length=64, unique=True)
+    user = models.ForeignKey(AppUser, on_delete=models.CASCADE)
+
 
     def __str__(self):
         return str(self.name)

@@ -35,6 +35,10 @@ class Vacancy(models.Model):
     vac_url = models.URLField(null=False)
     skills = models.ManyToManyField(Skill)
 
+    def has_skills(self):
+        return bool(self.skills)
+
+
     def __str__(self):
         res = str(self.vacancy_id) + " \n"
         res += str(self.name) + " \n"

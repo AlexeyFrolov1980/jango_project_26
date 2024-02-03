@@ -7,6 +7,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .forms import ContactsForm, SkillForm
 from django.views.generic.base import ContextMixin
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Create your views here.
@@ -107,6 +108,7 @@ class SkillListView(ListView):
     model = Skill
     template_name = 'blogapp/skill_list.html'
     context_object_name = 'skills'
+    paginate_by = 20
 
 
     def get_queryset(self):
@@ -114,7 +116,7 @@ class SkillListView(ListView):
         Получение данных
         :return:
         """
-        return Skill.objects.all()
+        return Skill.ActiveManager.all()
 
 # детальная информация
 class SkillDetailView(DetailView, NameContextMixin):

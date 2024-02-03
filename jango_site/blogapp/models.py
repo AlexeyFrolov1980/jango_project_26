@@ -1,7 +1,21 @@
 from django.db import models
 from users_app.models import AppUser
 
-import jango_site.models
+
+class ActiveManager(models.Manager):
+
+    def get_queryset(self):
+        all_objects = super().get_queryset()
+        return all_objects.filter(is_active=True)
+
+
+class IsActiveMixin(models.Model):
+    objects = models.Manager()
+    active_objects = ActiveManager()
+    is_active = models.BooleanField(default=False)
+
+    class Meta:
+        abstract = True
 
 
 class Area(models.Model):
@@ -16,13 +30,20 @@ class Area(models.Model):
         return res
 
 
-class Skill(models.Model):
+class Skill(IsActiveMixin):
     name = models.CharField(max_length=64, unique=True)
     user = models.ForeignKey(AppUser, on_delete=models.CASCADE)
 
-
     def __str__(self):
         return str(self.name)
+
+        # Переопределение метода save
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        # Создаем профиль
+        # Если провиль не создан
+        print("Скилл сохранили ", self)
 
 
 class Vacancy(models.Model):
@@ -38,11 +59,9 @@ class Vacancy(models.Model):
     def has_skills(self):
         return bool(self.skills)
 
-
     def __str__(self):
         res = str(self.vacancy_id) + " \n"
         res += str(self.name) + " \n"
         res += str(self.vac_url)
 
         return self.name
-

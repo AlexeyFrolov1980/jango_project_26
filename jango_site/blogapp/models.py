@@ -1,5 +1,6 @@
 from django.db import models
 from users_app.models import AppUser
+from django.utils.functional import cached_property
 
 
 class ActiveManager(models.Manager):
@@ -34,6 +35,10 @@ class Skill(IsActiveMixin):
     name = models.CharField(max_length=64, unique=True)
     user = models.ForeignKey(AppUser, on_delete=models.CASCADE)
 
+    @cached_property
+    def get_all_skills(self):
+        sk = Skill.objects.all()
+        return sk
     def __str__(self):
         return str(self.name)
 
